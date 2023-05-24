@@ -10,6 +10,7 @@ import { ProfileService } from 'src/profiles/profiles.service';
 import { UsersService } from 'src/users/users.service';
 import * as bcrypt from 'bcryptjs';
 import { CartService } from 'src/carts/cart.service';
+import { DeliveryService } from 'src/delivery/delivery.service';
 
 @Injectable()
 export class AuthService {
@@ -17,7 +18,7 @@ export class AuthService {
     private userService: UsersService,
     private profileService: ProfileService,
     private cartService: CartService,
-    private deliveryService: CartService,
+    private deliveryService: DeliveryService,
     private jwtService: JwtService,
   ) {}
   /**
