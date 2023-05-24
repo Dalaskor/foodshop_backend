@@ -1,6 +1,20 @@
 import { AddProductToDelivery, Delivery } from '@app/models';
-import { BadRequestException, Body, Controller, Delete, Get, Param, Post } from '@nestjs/common';
-import { ApiBody, ApiOperation, ApiParam, ApiResponse, ApiTags } from '@nestjs/swagger';
+import {
+  BadRequestException,
+  Body,
+  Controller,
+  Delete,
+  Get,
+  Param,
+  Post,
+} from '@nestjs/common';
+import {
+  ApiBody,
+  ApiOperation,
+  ApiParam,
+  ApiResponse,
+  ApiTags,
+} from '@nestjs/swagger';
 import { DeliveryService } from './delivery.service';
 
 @ApiTags('Доставка')
@@ -46,7 +60,7 @@ export class DeliveryController {
 
   @ApiOperation({ summary: 'Добавить товар в доставку' })
   @ApiBody({
-      type: AddProductToDelivery,
+    type: AddProductToDelivery,
   })
   @Post('/products')
   @ApiResponse({
@@ -88,7 +102,7 @@ export class DeliveryController {
     type: Number,
     description: 'ID товара',
   })
-  @Delete('/products/:cart_id/:product_id')
+  @Delete('/products/:delivery_id/:product_id')
   @ApiResponse({
     type: Delivery,
     description: 'Корзина пользователя',
@@ -97,6 +111,9 @@ export class DeliveryController {
     @Param('delivery_id') delivery_id: number,
     @Param('product_id') product_id: number,
   ) {
+    if (!Number(delivery_id) || !Number(product_id)) {
+      throw new BadRequestException('Ошибка ввода');
+    }
     const dto: AddProductToDelivery = {
       delivery_id,
       product_id,
