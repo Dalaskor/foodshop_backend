@@ -51,7 +51,7 @@ export class CartService {
   async addProductToCart(dto: AddProductToCart): Promise<Cart> {
     let count = 1;
     if (Number(dto.count) > 1) {
-        count = dto.count;
+      count = dto.count;
     }
     const cart: Cart = await this.cartRepository.findOne({
       where: { fk_cartid: dto.cart_id },
@@ -70,13 +70,14 @@ export class CartService {
     if (!cart.total) {
       cart.total = 0;
     }
-    cart.total += (product.price * count);
+    cart.total += product.price * count;
     await cart.save();
     const cartProduct: CartProducts = await this.cartProductRepo.findOne({
-      where: { cartId: dto.cart_id, productId: dto.product_id },
+      where: { cartId: cart.id, productId: dto.product_id },
     });
     cartProduct.count = count;
     await cartProduct.save();
+    console.log('====COUNT====', count);
     return cart;
   }
   async removeProductFromCart(dto: RemoveProductFromCart): Promise<Cart> {
@@ -91,8 +92,8 @@ export class CartService {
     const cartProduct = await this.cartProductRepo.findOne({
       where: { productId: product.id, cartId: cart.id },
     });
-    if(!cartProduct) {
-        throw new NotFoundException("Связь корзины и товара не найдена");
+    if (!cartProduct) {
+      throw new NotFoundException('Связь корзины и товара не найдена');
     }
     if (cartProduct.count > 1) {
       cartProduct.count -= 1;
