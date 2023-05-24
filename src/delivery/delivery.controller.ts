@@ -77,7 +77,7 @@ export class DeliveryController {
   }
   @ApiOperation({ summary: 'Удалить товар из доставки' })
   @ApiParam({
-    name: 'cart_id',
+    name: 'delivery_id',
     example: 1,
     type: Number,
     description: 'ID пользователя (доставки)',
