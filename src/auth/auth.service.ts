@@ -17,6 +17,7 @@ export class AuthService {
     private userService: UsersService,
     private profileService: ProfileService,
     private cartService: CartService,
+    private deliveryService: CartService,
     private jwtService: JwtService,
   ) {}
   /**
@@ -50,8 +51,10 @@ export class AuthService {
     };
     const profile = await this.profileService.createProfile(profileDto);
     const cart = await this.cartService.create();
+    const delivery = await this.deliveryService.create();
     user.$set('profile', profile);
     user.$set('cart', cart);
+    user.$set('delivery', delivery);
     return this.generateToken(user);
   }
   /**

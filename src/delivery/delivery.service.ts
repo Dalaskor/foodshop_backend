@@ -52,7 +52,7 @@ export class DeliveryService {
       include: { all: true },
     });
     if (!delivery) {
-      throw new NotFoundException('Корзина не найдена');
+      throw new NotFoundException('Доставка не найдена');
     }
     const product: Product = await this.productService.getOne(dto.product_id);
     if (!delivery.products) {
@@ -72,7 +72,7 @@ export class DeliveryService {
       include: { all: true },
     });
     if (!delivery) {
-      throw new NotFoundException('Корзина не найдена');
+      throw new NotFoundException('Доставка не найдена');
     }
     const product: Product = await this.productService.getOne(dto.product_id);
     await delivery.$remove('products', product.id);
@@ -84,7 +84,7 @@ export class DeliveryService {
       include: { all: true },
     });
     if (!delivery) {
-      throw new NotFoundException('Корзина не найдена');
+      throw new NotFoundException('Доставка не найдена');
     }
     await delivery.$set('products', []);
     await delivery.save();
