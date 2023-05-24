@@ -18,11 +18,10 @@ services:
     image: postgres:15
     environment:
       POSTGRES_DB: shop_backend
-      POSTGRES_HOST: postgres 
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: root
       PG_DATA: /var/lib/postgresql/data
     ports:
       - '5432:5432'
-    # volumes:
-    #   - ./docker_postgres_init.sql:/docker-entrypoint initdb.d/docker_postgres_init.sql
+    volumes:
+      - ./docker_postgres_init.sql:/docker-entrypoint initdb.d/docker_postgres_init.sql
